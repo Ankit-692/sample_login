@@ -9,7 +9,7 @@
     <title>Log In</title>
 </head>
 <body>
-    <form method='POST'>
+    <form method='POST' class="login">
         {% csrf_token %}
         {% for forms in form %}
             {{forms.label}}<br>

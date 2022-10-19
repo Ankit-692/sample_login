@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
-
+from .models import Messages
+from django.contrib import messages
 # Create your views here.
 
 def logIn(request):
@@ -29,3 +30,15 @@ def logOut(request):
     if(request.method == 'POST'):
         logout(request)
         return redirect('logIn')
+
+def contact(request):
+    return render(request, 'contact.html')
+
+def imessages(request):
+    if request.method == "POST":
+        name = request.POST['yourname']
+        email = request.POST['yourmail']
+        message = request.POST['yourmess']
+        Messages(name = name, email = email, messages = message).save()
+        messages.success(request, 'Message Sent !!')
+        return redirect('/contact')
